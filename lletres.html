@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Lletres</title>
+</head>
+<body>
+	<h3>Nivell 3 Exercici 1</h3>
+	<input type="text" id="nom" autofocus placeholder="Escribe tu nombre">
+	<button id="ex1">Ejercicio 1</button>
+	<button id="ex2">Ejercicio 2</button>
+	<button id="ex3">Ejercicio 3</button>
+	<input type="text" id="cogn" placeholder="Escribe tu apellido">
+	<button id="ex4">Ejercicio 4</button>
+	<button id="ex5">Ejercicio 1 N2</button>
+	<p id="result"></p>
+
+	
+	<script type="text/javascript">
+	
+		// Nivell 1 Exercici 1
+		let nom = ['J', 'u', 'a', 'n', 'C', 'a', 'r', 'l', 'o', 's'];
+		nom.forEach((letter) => console.log(letter));
+		
+		// Nivell 1 Exercici 2
+		let nom2 = ['A', 'L', 'E', 'J', '3', 'A', 'N', 'D', 'R', 'O'];
+		const vocals = "aeiou";
+		const consonants = "bcdfghjklmnpqrstvwxyz";
+		const numeros = "0123456789";
+
+		let isVowel = (chr) => vocals.indexOf(chr.toLowerCase()) >=0 ? true : false;
+		let isCons = (chr) => consonants.indexOf(chr.toLowerCase()) >=0 ? true : false;
+		let isNumber = (chr) => numeros.indexOf(chr) >=0 ? true : false;
+
+		nom2.forEach((chr) => {
+			if (isVowel(chr)) console.log(`He trobat la VOCAL: ${chr}`);
+			else if (isCons(chr)) console.log(`He trobat la CONSONANT: ${chr}`);
+				 else if (isNumber(chr)) console.log(`Els noms de persones no contenen el número: ${chr}`);
+					  else console.log(`El nom té un caràcter no vàlid`);
+		});
+
+		// Nivell 1 Exercici 3
+		let lletres = new Map();
+		nom2.forEach((chr) => {
+			lletres.has(chr) ? lletres.set(chr, lletres.get(chr)+1) : lletres.set(chr, 1);
+		});
+		console.log(lletres);
+		
+		// Nivell 1 Exercici 4
+		let cognom = ['F', 'e', 'r', 'n', 'a', 'n', 'd', 'e', 'z'];
+		let nomCog = [...nom, " ", ...cognom];
+		console.log(nomCog);
+
+	
+		// Nivell 2 Exercici 1
+		let str = 'Una dirección de correo electrónico es la dirección que utiliza para recibir y enviar correos electrónicos. Se muestra a los destinatarios de sus correos electrónicos para que sepan quién le envió un correo electrónico. Cada dirección de correo electrónico sólo se puede asignar una vez en todo el mundo y, por lo tanto, está disponible exclusivamente para usted. No puede cambiar las direcciones de correo electrónico, pero puede eliminarlas en cualquier momento. Una dirección de correo electrónico consiste en el signo @ (arroba), el nombre de usuario delante y el dominio detrás, por ejemplo, nombre-de-usuario@ionos.es: La parte del dominio depende del dominio bajo el cual se crea la dirección de correo electrónico: en nuestro ejemplo es ionos.es. Esta información varía de proveedor a proveedor, por lo que una parte del dominio también puede ser gmail.com o gmx.es si utiliza una dirección de correo electrónico de estos proveedores. Si ha registrado su propio dominio, por ejemplo, www.el-nombre-de-sus-sueños.es, las direcciones de correo electrónico que configura para el dominio lo tienen como parte del dominio (nombre-de-usuario@el-nombre-de-sus-sueños.es o nombre-de-usuario@el-nombre-de-sus-sueños.ES). El nombre de usuario es la parte de una dirección de correo electrónico que puede seleccionar libremente en la medida de lo posible. Puede, por ejemplo, utilizar su propio nombre o el nombre o departamento de una empresa. Si utiliza una dirección de correo electrónico con un proveedor de correo como gmail.com o gmx.es, es posible que la combinación con la parte del dominio deseada ya esté registrada. En este caso, deberá considerar alternativas para el nombre de usuario de su dirección de correo electrónico. Si utiliza su propio dominio, estas restricciones no se aplican porque sólo usted puede crear direcciones de correo electrónico que coincidan con su propio dominio. En resumen, nombre-de-usuario@ionos.es es un email';
+		let regexp = /([\w-\u00f1\u00d1\.]+@([\w-\u00f1\u00d1]+\.)+[\w-]{2,4})(?!.*\1)/g;
+		let result = str.toLowerCase().match(regexp);
+		console.log(result);
+
+	
+		// Nivell 3 Exercici 1
+		document.getElementById("ex1").onclick = exercici1;
+		document.getElementById("ex2").onclick = exercici2;
+		document.getElementById("ex3").onclick = exercici3;
+		document.getElementById("ex4").onclick = exercici4;
+		document.getElementById("ex5").onclick = exercici5;
+		
+		function exercici1() {
+			let nom1 = document.getElementById("nom").value.split("");
+			let message = `El resultado es:<br\>`
+			nom1.forEach((letter) => message +=`${letter}<br\>`);
+			document.getElementById("result").innerHTML = message;
+		}
+
+		function exercici2() {
+			let nom1 = document.getElementById("nom").value.split("");
+			let msg = `El resultado es:<br\>`
+			nom1.forEach((chr) => {
+				if (isVowel(chr)) msg +=`He trobat la VOCAL: ${chr}<br\>`;
+				else if (isCons(chr)) msg +=`He trobat la CONSONANT: ${chr}<br\>`;
+				 	 else if (isNumber(chr)) msg +=`Els noms de persones no contenen el número: ${chr}<br\>`;
+					  	 else msg +=`El nom té un caràcter no vàlid<br\>`;
+			});
+			document.getElementById("result").innerHTML = msg;
+		}		
+
+		function exercici3() {
+			let lletres = new Map()
+			let nom1 = document.getElementById("nom").value.split("");
+			nom1.forEach((chr) => {
+				lletres.has(chr) ? lletres.set(chr, lletres.get(chr)+1) : lletres.set(chr, 1);
+			});
+			let msg = `El resultado es:<br\>`
+			lletres.forEach((value, key) => msg += `${key} --> ${value}<br\>`);
+			document.getElementById("result").innerHTML = msg;
+		}
+
+		function exercici4() {
+			let nom1 = document.getElementById("nom").value.split("");
+			let cogn = document.getElementById("cogn").value.split("");
+			let nomCog = [...nom1, " ", ...cogn];
+			let msg = `El resultado es:<br\>`
+			nomCog.forEach((letter) => msg +=`${letter}<br\>`);
+			document.getElementById("result").innerHTML = msg;
+		}
+		
+		function exercici5() {
+			let msg = `El resultado es:<br\>`
+			result.forEach((mail) => msg +=`${mail}<br\>`);
+			document.getElementById("result").innerHTML = msg;
+		}
+		
+	</script>
+</body>
+</html>
